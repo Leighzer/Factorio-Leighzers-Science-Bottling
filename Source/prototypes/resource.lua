@@ -21,8 +21,7 @@ function AddResource(resourceName)
       name = resourceName.."-ore",
       order = "y",
       base_density = 10,
-      has_starting_area_placement = hasStartingAreaPlacement,
-      resource_index = resource_autoplace.get_next_resource_index() + 80,
+      has_starting_area_placement = hasStartingAreaPlacement,      
       regular_rq_factor_multiplier = 1.10,
       starting_rq_factor_multiplier = 1.5
     },
