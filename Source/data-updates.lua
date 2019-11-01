@@ -1,3 +1,4 @@
+--regular science ingredients => science liquid
 function CreateLiquidScienceRecipeVanilla(scienceName, sortOrder, isEnabled)  
     data:extend({        
         {
@@ -23,6 +24,7 @@ function CreateLiquidScienceRecipeVanilla(scienceName, sortOrder, isEnabled)
     table.insert(leighzermods.leighzersciencebottling.productivityEnabledRecipes,"liquid-" .. scienceName)
 end
 
+--science ore => science liquid
 function CreateLiquidScienceRecipeScienceOre(scienceName,sortOrder,isEnabled)
     
     data:extend({        
@@ -88,8 +90,7 @@ function MakeSciencePackRequireLiquid(scienceName)
     local recipe = data.raw["recipe"][scienceName .. "-pack"]          
     recipe.category = "chemistry"
     recipe.ingredients = {{type="fluid",name="liquid-"..scienceName,amount=10},{"glass-bottle",1}}
-    recipe.result = nil
-    recipe.result_count = nil
+    recipe.result = nil    
     recipe.results = {{scienceName .. "-pack",1}}    
 end
 
@@ -101,7 +102,13 @@ function MakeSpaceSciencePackRequireLiquid()
     recipe.result_count = nil
     recipe.results = {{"space-science-pack",1}}  
     recipe.subgroup = "science-pack" 
-    recipe.order = "z"
+    recipe.order = "z"    
+    recipe.hidden = false    
+end
+
+function MoveSpaceScienceSubGroup()
+    local recipe = data.raw["recipe"]["space-science-ore-to-science"]
+    recipe.subgroup = "leighzersciencebottling-alt-science-pack"
 end
 
 function MakeSciencePacksRequireLiquid()
@@ -140,56 +147,108 @@ function HideScienceOreToPackRecipes()
     end
     if leighzermods.leighzerscienceores.utilityEnabled then
         HideScienceOreToPackRecipe("utility-science")
-    end
-    --HideScienceOreToPackRecipe("space-science")
+    end        
+    --if leighzermods.leighzerscienceores.spaceEnabled and not(mods["leighzerscienceores"] and leighzermods.leighzersciencebottling.onlyNeedToBottleScienceOres) then
+    --    HideScienceOreToPackRecipe("space-science")
+    --end    
 end
 
-function FillInVanillaLiquidScienceRecipesWhereOresIsDisabled()--enable vanilla to liquid science where the ore is disabled so a game is possible with disabling certain ores
-    if not leighzermods.leighzerscienceores.automationEnabled then
-        CreateLiquidScienceRecipeVanilla("automation-science",0,true)
+function AddLiquidToScienceRecipe(scienceName,isEnabled)
+    local energy_required
+    local order
+    if data.raw["recipe"][scienceName.. "-pack"] and data.raw["recipe"][scienceName.. "-pack"].energy_required then
+        energy_required = data.raw["recipe"][scienceName .. "-pack"].energy_required
+        order = data.raw["recipe"][scienceName .. "-pack"].order
+    else
+        energy_required = 50
+        order = z
     end
-    if not leighzermods.leighzerscienceores.logisticEnabled then
-        CreateLiquidScienceRecipeVanilla("logistic-science",1,false)
+    
+    data:extend({
+        {
+            type = "recipe",
+            enabled = isEnabled,
+            name = "alt-"..scienceName.."-pack",
+            energy_required = energy_required,
+            category = "chemistry",
+            subgroup = "leighzersciencebottling-alt-science-pack",
+            order = order,
+            ingredients =
+            {
+                {type="fluid",name="liquid-"..scienceName,amount=10},{"glass-bottle",1}
+            },
+            results = {{scienceName.."-pack",1}}
+          },
+    })
+
+    if not isEnabled then --if not enabled
+        table.insert(data.raw["technology"][scienceName .. "-pack"].effects, {type = "unlock-recipe",recipe = "alt-"..scienceName.."-pack"})--add it as an unlock when pack is researched
     end
-    if not leighzermods.leighzerscienceores.militaryEnabled then
-        CreateLiquidScienceRecipeVanilla("military-science",2,false)
-    end
-    if not leighzermods.leighzerscienceores.chemicalEnabled then
-        CreateLiquidScienceRecipeVanilla("chemical-science",3,false)
-    end
-    if not leighzermods.leighzerscienceores.productionEnabled then
-        CreateLiquidScienceRecipeVanilla("production-science",4,false)
-    end
-    if not leighzermods.leighzerscienceores.utilityEnabled then
-        CreateLiquidScienceRecipeVanilla("utility-science",5,false)
-    end    
+    table.insert(leighzermods.leighzersciencebottling.productivityEnabledRecipes,"alt-"..scienceName.."-pack")
+
 end
+
+function AddLiquidToScienceRecipes()
+    if leighzermods.leighzerscienceores.automationEnabled then
+        AddLiquidToScienceRecipe("automation-science",true)
+    end
+    if leighzermods.leighzerscienceores.logisticEnabled then
+        AddLiquidToScienceRecipe("logistic-science",false)
+    end
+    if leighzermods.leighzerscienceores.militaryEnabled then
+        AddLiquidToScienceRecipe("military-science",false)
+    end
+    if leighzermods.leighzerscienceores.chemicalEnabled then
+        AddLiquidToScienceRecipe("chemical-science",false)
+    end
+    if leighzermods.leighzerscienceores.productionEnabled then
+        AddLiquidToScienceRecipe("production-science",false)
+    end
+    if leighzermods.leighzerscienceores.utilityEnabled then
+        AddLiquidToScienceRecipe("utility-science",false)
+    end        
+    --if leighzermods.leighzerscienceores.spaceEnabled then
+    --    AddLiquidToScienceRecipe("space-science",false)
+    --end
+end
+
 
 if mods["leighzerscienceores"] then
-    if leighzermods.leighzersciencebottling.onlyNeedToBottleScienceOres then
-        ScienceOreLiquidScienceRecipes()--create science liquid from science ores
-        FillInVanillaLiquidScienceRecipesWhereOresIsDisabled()--enable vanilla to liquid science where the ore is disabled so a game is possible with disabling certain ores
-    else
-        ScienceOreLiquidScienceRecipes()--create science liquid from science ores
-        VanillaLiquidScienceRecipes()--create science liquid from
+    ScienceOreLiquidScienceRecipes()--create science liquid from science ores
+    if leighzermods.leighzersciencebottling.onlyNeedToBottleScienceOres then        
+        AddLiquidToScienceRecipes()--adds duplicate science pack recipes that take liquid, so folks can liquify ores to make science or make science the good old fashioned way
+        MakeSpaceSciencePackRequireLiquid()
+        MoveSpaceScienceSubGroup()
+    else            
+        VanillaLiquidScienceRecipes()--create science liquid from regular vanilla ingredients
+        MakeSciencePacksRequireLiquid()--update science pack recipes to require bottling of liquid
+        MakeSpaceSciencePackRequireLiquid()        
     end
     HideScienceOreToPackRecipes()
 else
     VanillaLiquidScienceRecipes()--create science liquid only by vanilla
+    MakeSciencePacksRequireLiquid()--update science pack recipes to require bottling of liquid
 end
 
-MakeSciencePacksRequireLiquid()--update science pack recipes to require bottling of liquid
+--if leighzerscienceores then
+--
+--    if only bottle science ores
+--        dont touch regular science
+--        create science ore to liquid
+--        create liquid to science, in new category below normal science `2 sets of recipes to make science`
+--    else
+--        fuck up regular science
+--        create regular ingredients to liquid
+--        create science ore to liquid        
+--        update science recipe to require liquid `1 set of recipes ot make science`
 
---this function doesn't work
---function RemoveRecipeUnlock(technologyName,recipe)
---    if data.raw.technology[technologyName] and data.raw.technology[technologyName].effects then
---        for i, effect in pairs(data.raw.technology[technologyName].effects) do
---          if effect.type == "unlock-recipe" and effect.recipe == recipe then
---            table.remove(data.raw.technology[technologyName].effects,i)
---          end
---        end
---      end
+--else
+--    create regular ingredients to liquid
+--    update science recipe to require liquid `1 set of recipes ot make science`
+
 --end
+
+
 
 function MoveBarrelRecipe(scienceName,sortOrder,isEnabled)
     local item = data.raw["item"]["liquid-"..scienceName.."-barrel"]
@@ -254,3 +313,4 @@ for k, v in pairs(data.raw.module) do
       end
     end
   end
+

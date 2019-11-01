@@ -16,7 +16,7 @@ data:extend(
         type = "bool-setting",
         name = "onlyNeedToBottleScienceOres",
         setting_type = "startup",
-        default_value = false,
+        default_value = true,
         order = "b"
     }
 })

@@ -20,12 +20,12 @@ data:extend(
   },
   {
     type = "item",
-    name = "bottling-plant",
-    icon = "__leighzersciencebottling__/graphics/icons/bottling-plant.png",
+    name = "slowncheap-chemical-plant",
+    icon = "__leighzersciencebottling__/graphics/icons/slowncheap-chemical-plant.png",
     icon_size = 32,            
     subgroup = "leighzersciencebottling-top-row",
     order = "a-b",
-    place_result = "bottling-plant",
+    place_result = "slowncheap-chemical-plant",
     stack_size = 10,
   }
 })

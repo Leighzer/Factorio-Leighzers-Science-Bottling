@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.3
+  Bugfixes:
+    - Fixed failure to load based on old chemical plant prototype being used for beginning chemical plant.    
+  Changes:
+    - Update to 'Only require science bottling for science ores.' setting. Now works as initially intended. This option now lets you leave vanilla science pack recipes alone and only require that science ores be bottled so they are less OP.
+
+---------------------------------------------------------------------------------------------------
 Version: 0.1.2
   Bugfixes:
     - 0.17.52 hotfix.

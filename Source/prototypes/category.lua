@@ -39,3 +39,15 @@ data:extend(
 	order = "e", 
   }
 })
+
+if mods["leighzerscienceores"] and leighzermods.leighzersciencebottling.onlyNeedToBottleScienceOres then
+  data:extend(
+    { 
+      {
+        type = "item-subgroup",
+        name = "leighzersciencebottling-alt-science-pack",
+        group = "intermediate-products",
+        order = "ga"
+      },
+    })
+end
