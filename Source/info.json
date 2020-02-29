@@ -1,11 +1,11 @@
 {
   "name": "leighzersciencebottling",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "title": "Leighzer's Science Bottling",
   "author": "Leighzer",
   "contact": "Please message me on the factorio forums my username is leighzer.",
   "homepage": "",
-  "factorio_version": "0.17",
-  "dependencies": [ "base >= 0.17.52", "? leighzerscienceores >= 0.1.5"],
+  "factorio_version": "0.18",
+  "dependencies": [ "base >= 0.18.6", "? leighzerscienceores >= 0.2.0"],
   "description": "Configurable mod that changes the science pack production chain. Liquid science now must be manufactured and bottled to make a science pack."
 }
