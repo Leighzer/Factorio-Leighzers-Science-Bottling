@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.1  
+  Changes:
+    - Added pl translation thanks to github user Tomirad.
+  Bugfixes:
+    - Fixed issue where mining a slow n cheap chemical plant gave the player a regular chemical plant as a result.
+    - Added fix to make slow n cheap chemical plant fast replaceable with a regular chemical plant.
+
+---------------------------------------------------------------------------------------------------
 Version: 0.2.0  
   Changes:
     - 0.18 update.

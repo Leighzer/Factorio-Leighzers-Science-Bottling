@@ -1,3 +1,5 @@
+data.raw["assembling-machine"]["chemical-plant"].fast_replaceable_group = "chemical-plant"
+
 data:extend(
 { 
 
@@ -7,10 +9,12 @@ data:extend(
     icon = "__leighzersciencebottling__/graphics/icons/slowncheap-chemical-plant.png",
     icon_size = 32,
     flags = {"placeable-neutral","placeable-player", "player-creation"},
-    minable = {mining_time = 0.1, result = "chemical-plant"},
+    minable = {mining_time = 0.1, result = "slowncheap-chemical-plant"},
     max_health = 300,
     corpse = "medium-remnants",
     dying_explosion = "medium-explosion",
+    fast_replaceable_group = "chemical-plant",
+    next_upgrade = "chemical-plant",
     collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
     drawing_box = {{-1.5, -1.9}, {1.5, 1.5}},
