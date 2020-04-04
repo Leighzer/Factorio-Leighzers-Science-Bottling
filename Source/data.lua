@@ -30,7 +30,7 @@ if not leighzermods.leighzersciencebottling.tints then
     leighzermods.leighzersciencebottling.tints["sand"] = {r=230/255, g=224/255, b=194/255, a = 1} --70.7 63.0 28.5
 end
 
-require("prototypes.entity")
+require("prototypes.slowncheap-chemical-plant")
 require("prototypes.fluid")
 require("prototypes.category")
 

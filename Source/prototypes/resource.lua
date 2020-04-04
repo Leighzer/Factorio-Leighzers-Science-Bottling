@@ -7,7 +7,7 @@ function AddResource(resourceName)
     icon = "__leighzersciencebottling__/graphics/icons/"..resourceName.."-ore.png",
     icon_size = 32,
     flags = {"placeable-neutral"},
-    order="h",
+    order="y-a",
     map_color = leighzermods.leighzersciencebottling.tints[resourceName],--color used for ore patch when viewed from mini map
     minable =
     {     
@@ -41,8 +41,6 @@ function AddResource(resourceName)
     }
   })
 end
-
-AddResource('sand')
 
 if leighzermods.leighzersciencebottling.isPrecursoreEnabled then
   AddResource('precursore')

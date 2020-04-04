@@ -1,19 +1,33 @@
+data:extend({
+  {
+type = "recipe",
+name = "stone-to-sand",
+enabled = true,
+category = "advanced-crafting",
+ingredients = {{"stone", 2}},
+result = "sand",
+result_count = 2,
+subgroup = "leighzersciencebottling-top-row",
+order = "a-a"
+}
+})
+table.insert(leighzermods.leighzersciencebottling.productivityEnabledRecipes,'stone-to-sand')
 
 data:extend({
         {
     type = "recipe",
-    name = "sand-ore-to-glass-bottle",
+    name = "sand-to-glass-bottle",
     energy_required = data.raw["recipe"]["iron-plate"].energy_required, --same time to craft as vanilla iron plate
     enabled = true,
     category = "smelting",
-    ingredients = {{"sand-ore", 2}},
+    ingredients = {{"sand", 2}},
     result = "glass-bottle",
     result_count = 1,
     subgroup = "leighzersciencebottling-top-row",
-    order = "a-b"
+    order = "a-c"
     }
 })
-table.insert(leighzermods.leighzersciencebottling.productivityEnabledRecipes,'sand-ore-to-glass-pane')
+table.insert(leighzermods.leighzersciencebottling.productivityEnabledRecipes,'sand-to-glass-bottle')
 
 
 if leighzermods.leighzersciencebottling.isPrecursoreEnabled then
@@ -39,20 +53,4 @@ if leighzermods.leighzersciencebottling.isPrecursoreEnabled then
 })
 table.insert(leighzermods.leighzersciencebottling.productivityEnabledRecipes,'liquify-precursore')
 end
-
-data:extend({
-  {
-type = "recipe",
-name = "slowncheap-chemical-plant",
-energy_required = 3,
-enabled = true,
-category = "crafting",
-ingredients = {{"iron-plate", 2},{"iron-gear-wheel", 2},{"pipe", 3}},
-result = "slowncheap-chemical-plant",
-result_count = 1,
-subgroup = "leighzersciencebottling-top-row",
-order = "a-c"
-}
-})
-table.insert(leighzermods.leighzersciencebottling.productivityEnabledRecipes,'slowncheap-chemical-plant')
 
